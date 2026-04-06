@@ -2,7 +2,11 @@ import { defineConfig } from "vite";
 
 export default defineConfig(async ({ command }) => {
   const config = {
-    base: command === 'build' ? '/ExcelAddin/' : '/',
+    base: '/ExcelAddin/',
+    build: {
+      outDir: 'docs',
+      emptyOutDir: true,
+    },
     server: {
       host: true,
       port: 3000,
