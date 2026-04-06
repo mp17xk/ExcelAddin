@@ -1,20 +1,23 @@
 import { defineConfig } from "vite";
-import { getHttpsServerOptions } from "office-addin-dev-certs";
 
 export default defineConfig(async ({ command }) => {
-  // Richiedi i certificati SSL di sviluppo generati da Microsoft
-  const httpsOptions = await getHttpsServerOptions();
-
-  return {
+  const config = {
     base: command === 'build' ? '/ExcelAddin/' : '/',
     server: {
-      host: true, // Permette l'accesso da altri PC nella rete locale
+      host: true,
       port: 3000,
-      https: httpsOptions,
       strictPort: true,
       headers: {
-        "Access-Control-Allow-Origin": "*", // Evita errori CORS quando è hostato tramite iframe in Excel
+        "Access-Control-Allow-Origin": "*",
       },
     },
   };
+
+  // Carica i certificati SSL solo in sviluppo locale (non in CI/build)
+  if (command === 'serve') {
+    const { getHttpsServerOptions } = await import("office-addin-dev-certs");
+    config.server.https = await getHttpsServerOptions();
+  }
+
+  return config;
 });
