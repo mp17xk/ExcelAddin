@@ -6,8 +6,8 @@
     <title>Gestione Dati Excel</title>
     <script type="text/javascript" src="https://appsforoffice.microsoft.com/lib/1/hosted/office.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
-  <script type="module" crossorigin src="/assets/index-ClSgT1m5.js"></script>
-  <link rel="stylesheet" crossorigin href="/assets/index-L0VWOfof.css">
+  <script type="module" crossorigin src="/ExcelAddin/assets/index-DL1PrBHA.js"></script>
+  <link rel="stylesheet" crossorigin href="/ExcelAddin/assets/index-BWKXKRHg.css">
 </head>
 <body>
     <div class="container">
@@ -57,32 +57,28 @@
                <span class="drop-zone__prompt">
                    <span class="upload-icon">📊</span><br/>
                    Carica il file da migrare<br/>
-                   <label for="migFileInput" class="custom-file-upload">CSV o XLSX</label>
+                   <label for="migFileInput" class="custom-file-upload">CSV, XLSX o ODS</label>
                </span>
-               <input type="file" id="migFileInput" accept=".csv,.xlsx,.xls" />
-            </div>
-
-            <!-- Selezione foglio sorgente (solo XLSX multi-foglio) -->
-            <div id="migSheetSelector" class="field-group" style="display:none">
-                <label class="field-label" for="migSourceSheet">Foglio sorgente nel file:</label>
-                <select id="migSourceSheet" class="fluent-select" style="width:100%"></select>
+               <input type="file" id="migFileInput" accept=".csv,.xlsx,.xls,.ods" />
             </div>
 
             <!-- Info file caricato -->
-            <div id="migFileInfo" class="file-info" style="display: none;">
+            <div id="migFileInfo" class="file-info" style="display: none; margin-top: 12px;">
                 <p><strong>File:</strong> <span id="migFileName">...</span></p>
-                <p><strong>Righe dati:</strong> <span id="migFileRows">...</span></p>
+                <p><strong>Righe dati totali:</strong> <span id="migFileRows">...</span></p>
             </div>
 
-            <!-- Step 2: Tabella di mapping colonne -->
+            <!-- Step 2: Tabella di mapping regole -->
             <div id="migMappingSection" style="display:none">
-                <p class="section-title">Mapping colonne → destinazione</p>
-                <p class="section-hint">Per ogni colonna sorgente scegli il foglio e la colonna di destinazione nel workbook Excel aperto. Lascia "— Ignora —" per escludere la colonna.</p>
-                <div class="mapping-table-wrapper">
+                <p class="section-title">Regole di mapping</p>
+                <p class="section-hint">Costruisci regole specificando da quale foglio/colonna sorgente pescare i dati, e in quale foglio/colonna di destinazione scriverli.</p>
+                <div class="mapping-table-wrapper" style="margin-bottom: 12px;">
                     <table class="mapping-table">
                         <thead>
                             <tr>
-                                <th>Colonna Sorgente</th>
+                                <th>Azioni</th>
+                                <th>Foglio Sorg.</th>
+                                <th>Colonna Sorg.</th>
                                 <th>Foglio Dest.</th>
                                 <th>Colonna Dest.</th>
                             </tr>
@@ -91,9 +87,15 @@
                         </tbody>
                     </table>
                 </div>
-                <button id="migExecuteBtn" class="btn primary-btn" style="margin-top:12px">
-                    ▶ Esegui Migrazione
-                </button>
+                
+                <div style="display: flex; gap: 8px;">
+                    <button id="migAddColBtn" class="btn secondary-btn" style="flex: 1;">
+                        ＋ Aggiungi regola
+                    </button>
+                    <button id="migExecuteBtn" class="btn primary-btn" style="flex: 2;">
+                        ▶ Esegui Migrazione
+                    </button>
+                </div>
             </div>
 
             <div id="migStatusMessage" class="status-message"></div>
