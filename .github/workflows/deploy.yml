@@ -1,0 +1,62 @@
+name: Deploy to GitHub Pages
+
+on:
+  # Esegui il workflow su ogni push nel branch main
+  push:
+    branches:
+      - main
+  # Permette di eseguire il workflow manualmente dalla tab Actions
+  workflow_dispatch:
+
+# Imposta i permessi per il GITHUB_TOKEN per consentire il deploy su GitHub Pages
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Permetti un solo deploy contemporaneo, saltando i deploy in coda
+concurrency:
+  group: "pages"
+  cancel-in-progress: true
+
+jobs:
+  # Lavoro di Build
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout del codice
+        uses: actions/checkout@v4
+      
+      - name: Configura Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+          cache: 'npm'
+          
+      - name: Installa le dipendenze
+        run: npm ci
+        
+      - name: Compila il progetto
+        run: npm run build
+        
+      - name: Setup Pages
+        uses: actions/configure-pages@v4
+        
+      - name: Carica gli artefatti
+        uses: actions/upload-pages-artifact@v3
+        with:
+          # Carichiamo la directory dist, generata da Vite
+          path: './dist'
+
+  # Lavoro di Deploy
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    needs: build
+    runs-on: ubuntu-latest
+    name: Deploy
+    steps:
+      - name: Esegui deploy su GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
