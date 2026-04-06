@@ -1,0 +1,35 @@
+[
+    {
+        "stato": [
+            "Verifica energetica ambientale",
+            "Istruttoria Tecnica - Richiesta Integrazioni",
+            "Attesa integrazione documentale",
+            "Valutazione tecnica"
+        ]
+    },
+    {
+        "registri": [
+            {
+                "1-": "PDC"
+            },
+            {
+                "9-": "SCIA"
+            },
+            {
+                "40-": "SCIA"
+            },
+            {
+                "41-": "SCIA"
+            },
+            {
+                "20-": "CILA"
+            },
+            {
+                "13-": "PAESAGGISTICA"
+            },
+            {
+                "19-": "INCENTIVATE"
+            }
+        ]
+    }
+]

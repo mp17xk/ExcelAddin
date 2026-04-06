@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestione Dati Excel</title>
+    <script type="text/javascript" src="https://appsforoffice.microsoft.com/lib/1/hosted/office.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <script type="module" crossorigin src="/assets/index-ClSgT1m5.js"></script>
+  <link rel="stylesheet" crossorigin href="/assets/index-L0VWOfof.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="icon-container">
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M14 2H6C4.9 2 4 2.9 4 4V20C4 21.1 4.9 22 6 22H18C19.1 22 20 21.1 20 20V8L14 2ZM18 20H6V4H13V9H18V20ZM12 19L8 15H10.5V12H13.5V15H16L12 19Z" fill="#107c41"/>
+                </svg>
+            </div>
+            <h1 class="title">Gestione Dati Excel</h1>
+            <p class="subtitle">Importa CSV o migra dati da qualsiasi spreadsheet.</p>
+        </header>
+
+        <!-- Tab Switcher -->
+        <div class="tab-switcher">
+            <button class="tab-btn active" data-tab="import">📥 Importa CSV</button>
+            <button class="tab-btn" data-tab="migrate">🔄 Migrazione</button>
+        </div>
+
+        <!-- ══ TAB: Importa CSV (funzionalità esistente) ══════════════ -->
+        <div id="tab-import" class="tab-panel">
+            <div id="dropZone" class="drop-zone">
+               <span class="drop-zone__prompt">
+                   <span class="upload-icon">📄</span><br/>
+                   Clicca per selezionare il tuo<br/>
+                   <label for="csvFileInput" class="custom-file-upload">File CSV</label>
+               </span>
+               <input type="file" id="csvFileInput" accept=".csv" />
+            </div>
+
+            <div class="file-info" id="fileInfo" style="display: none;">
+                <p><strong>Nome:</strong> <span id="fileName">...</span></p>
+                <p><strong>N. Righe lette:</strong> <span id="fileRows">...</span></p>
+            </div>
+
+            <button id="importBtn" class="btn primary-btn" disabled>
+                <span>Inserisci nel Foglio</span>
+            </button>
+            <div id="statusMessage" class="status-message">Caricamento Add-in...</div>
+        </div>
+
+        <!-- ══ TAB: Migrazione da Spreadsheet ══════════════════════════ -->
+        <div id="tab-migrate" class="tab-panel" style="display:none">
+
+            <!-- Step 1: Selezione file sorgente -->
+            <div id="migDropZone" class="drop-zone">
+               <span class="drop-zone__prompt">
+                   <span class="upload-icon">📊</span><br/>
+                   Carica il file da migrare<br/>
+                   <label for="migFileInput" class="custom-file-upload">CSV o XLSX</label>
+               </span>
+               <input type="file" id="migFileInput" accept=".csv,.xlsx,.xls" />
+            </div>
+
+            <!-- Selezione foglio sorgente (solo XLSX multi-foglio) -->
+            <div id="migSheetSelector" class="field-group" style="display:none">
+                <label class="field-label" for="migSourceSheet">Foglio sorgente nel file:</label>
+                <select id="migSourceSheet" class="fluent-select" style="width:100%"></select>
+            </div>
+
+            <!-- Info file caricato -->
+            <div id="migFileInfo" class="file-info" style="display: none;">
+                <p><strong>File:</strong> <span id="migFileName">...</span></p>
+                <p><strong>Righe dati:</strong> <span id="migFileRows">...</span></p>
+            </div>
+
+            <!-- Step 2: Tabella di mapping colonne -->
+            <div id="migMappingSection" style="display:none">
+                <p class="section-title">Mapping colonne → destinazione</p>
+                <p class="section-hint">Per ogni colonna sorgente scegli il foglio e la colonna di destinazione nel workbook Excel aperto. Lascia "— Ignora —" per escludere la colonna.</p>
+                <div class="mapping-table-wrapper">
+                    <table class="mapping-table">
+                        <thead>
+                            <tr>
+                                <th>Colonna Sorgente</th>
+                                <th>Foglio Dest.</th>
+                                <th>Colonna Dest.</th>
+                            </tr>
+                        </thead>
+                        <tbody id="migMappingBody">
+                        </tbody>
+                    </table>
+                </div>
+                <button id="migExecuteBtn" class="btn primary-btn" style="margin-top:12px">
+                    ▶ Esegui Migrazione
+                </button>
+            </div>
+
+            <div id="migStatusMessage" class="status-message"></div>
+        </div>
+    </div>
+
+    <!-- Modale per il Report Finale (invariato) -->
+    <div id="reportModal" class="modal-overlay" style="display:none;">
+        <div class="modal-content">
+            <h2>Riepilogo Smistamento</h2>
+            <div class="report-stats">
+                <div class="stat-box">
+                    <span class="stat-num" id="statNewCount">0</span>
+                    <span class="stat-label">Nuove negli Storici</span>
+                </div>
+                <div class="stat-box">
+                    <span class="stat-num" id="statTotalCount">0</span>
+                    <span class="stat-label">Scrivania Attiva</span>
+                </div>
+            </div>
+            
+            <h3>Elenco Nuove Pratiche</h3>
+            <div class="report-list-wrapper">
+                <ul id="reportList" class="report-list">
+                </ul>
+            </div>
+            
+            <button id="closeReportBtn" class="btn primary-btn mt-3">OK, Capito!</button>
+        </div>
+    </div>
+
+</body>
+</html>

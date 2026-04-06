@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!-- Il Manifest. Questo file viene letto da Excel per capire di cosa tratta e dove si trova la tua app web -->
+<OfficeApp xmlns="http://schemas.microsoft.com/office/appforoffice/1.1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="TaskPaneApp">
+  <!-- ID univoco del tuo Add-in. Non modificarlo altrimenti Excel lo considererà un add-in diverso -->
+  <Id>7d8b5c92-b430-4e3a-b8cb-46bbaab3a69a</Id>
+  <Version>1.0.0.0</Version>
+  <ProviderName>Educational</ProviderName>
+  <DefaultLocale>it-IT</DefaultLocale>
+  
+  <DisplayName DefaultValue="Esporta CSV Demo" />
+  <Description DefaultValue="Impara a importare file CSV sul foglio." />
+  
+  <!-- Icone fittizie, ma necessarie per validare il manifest, devon essere in .png -->
+  <IconUrl DefaultValue="https://raw.githubusercontent.com/OfficeDev/office-js-snippets/main/assets/icon-32.png" />
+  <HighResolutionIconUrl DefaultValue="https://raw.githubusercontent.com/OfficeDev/office-js-snippets/main/assets/icon-80.png" />
+  
+  <!-- Qualsiasi pagina HTTPS va bene per Help -->
+  <SupportUrl DefaultValue="https://192.168.1.52:3000/index.html" />
+  
+  <!-- E' fondamentale dichiarare i domini sicuri della tua web app -->
+  <AppDomains>
+    <AppDomain>https://192.168.1.52:3000</AppDomain>
+  </AppDomains>
+  
+  <Hosts>
+    <Host Name="Workbook" /> <!-- Specifica che questo add-in è per Excel (foglio di lavoro) -->
+  </Hosts>
+  
+  <!-- Indica dove Excel deve trovare l'homepage della web app -->
+  <DefaultSettings>
+    <SourceLocation DefaultValue="https://192.168.1.52:3000/index.html" />
+  </DefaultSettings>
+  
+  <!-- Chiediamo i permessi per leggere e scrivere all'interno del documento aperto -->
+  <Permissions>ReadWriteDocument</Permissions>
+</OfficeApp>

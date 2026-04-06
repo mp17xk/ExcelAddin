@@ -1,0 +1,49 @@
+[
+    {
+        "foglio": "VEA",
+        "campo": "Attività da espletare",
+        "valore": "verifica energetica ambientale"
+    },
+    {
+        "foglio": "SCIA",
+        "campo": "Codice pratica",
+        "regola": "START-WITH",
+        "valore": [
+            "9-",
+            "40-",
+            "41-"
+        ]
+    },
+    {
+        "foglio": "PDC",
+        "campo": "Codice pratica",
+        "regola": "START-WITH",
+        "valore": [
+            "1-"
+        ]
+    },
+    {
+        "foglio": "PAESAGGISTICHE",
+        "campo": "Codice pratica",
+        "regola": "START-WITH",
+        "valore": [
+            "13-"
+        ]
+    },
+    {
+        "foglio": "INCENTIVATE",
+        "campo": "Codice pratica",
+        "regola": "START-WITH",
+        "valore": [
+            "19-"
+        ]
+    },
+    {
+        "foglio": "CILA",
+        "campo": "Codice pratica",
+        "regola": "START-WITH",
+        "valore": [
+            "20-  "
+        ]
+    }
+]

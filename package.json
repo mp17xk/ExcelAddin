@@ -1,0 +1,17 @@
+{
+  "name": "excel-csv-importer",
+  "version": "1.0.0",
+  "description": "Educational excel add-in to import CSV",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build"
+  },
+  "devDependencies": {
+    "office-addin-dev-certs": "^1.11.7",
+    "vite": "^5.0.0"
+  },
+  "dependencies": {
+    "xlsx": "^0.18.5"
+  }
+}
